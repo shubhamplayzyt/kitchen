@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ghost Kitchen</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff; /* Primary */
+      color: #000000; /* Secondary */
+    }
+    header {
+      background-color: #000000; /* Secondary */
+      color: #ffffff; /* Primary */
+      padding: 20px 10px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    nav {
+      display: flex;
+      justify-content: space-around;
+      background-color: #008000; /* Tertiary */
+      padding: 10px;
+    }
+    nav a {
+      color: #ffffff; /* Primary */
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover, nav a.active {
+      text-decoration: underline;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #ffffff; /* Primary */
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .intro-section {
+      text-align: center;
+      margin: 40px 0;
+    }
+    .intro-section button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #008000; /* Tertiary */
+      color: #ffffff; /* Primary */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .intro-section button:hover {
+      background-color: #005500; /* Darker green */
+    }
+    .dashboard {
+      display: none;
+    }
+    .dashboard.active {
+      display: block;
+    }
+    .dashboard-section {
+      margin: 20px 0;
+      padding: 15px;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .dashboard-section h3 {
+      color: #000000; /* Secondary */
+    }
+    footer {
+      text-align: center;
+      padding: 10px 0;
+      background: #000000; /* Secondary */
+      color: #ffffff; /* Primary */
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ghost Kitchen</h1>
+    <p>Your ultimate dashboard for managing ghost kitchens efficiently.</p>
+  </header>
+  <nav>
+    <a href="#" class="active">Home</a>
+    <a href="#" id="dashboardLink">Dashboard</a>
+    <a href="#">Subscription Plans</a>
+    <a href="#">Contact Us</a>
+  </nav>
+  <div class="container">
+    <!-- Introduction Section -->
+    <div class="intro-section">
+      <h2>Welcome to Ghost Kitchen</h2>
+      <p>Manage your restaurant chain or individual restaurant with our comprehensive tools and features.</p>
+      <button id="getStartedButton">Get Started</button>
+    </div>
+
+    <!-- Login Section -->
+    <div class="login-section" style="display:none;">
+      <h2>Login</h2>
+      <p>Select your role to access the dashboard:</p>
+      <select id="roleSelect">
+        <option value="owner">Chain Owner</option>
+        <option value="manager">Restaurant Manager</option>
+      </select>
+      <br />
+      <button id="loginButton">Login</button>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div class="dashboard" id="dashboard">
+      <h2>Dashboard</h2>
+      <p id="welcomeMessage"></p>
+
+      <!-- Sections for Dashboard -->
+      <div id="ownerDashboard" class="dashboard-section">
+        <h3>Owner Dashboard</h3>
+        <p>Manage your chain, view analytics, and explore AI recommendations.</p>
+        <ul>
+          <li>Advertising and restaurant management tools</li>
+          <li>Online sales and review tracking</li>
+          <li>AI Chatbot for business insights</li>
+        </ul>
+      </div>
+
+      <div id="managerDashboard" class="dashboard-section">
+        <h3>Manager Dashboard</h3>
+        <p>Handle daily operations and monitor customer feedback.</p>
+        <ul>
+          <li>Automatic billing and stock ordering</li>
+          <li>Review management</li>
+          <li>Chef and staff evaluations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p>&copy; 2024 Ghost Kitchen. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // JavaScript for Role-Based Navigation
+    const getStartedButton = document.getElementById("getStartedButton");
+    const loginSection = document.querySelector(".login-section");
+    const dashboard = document.getElementById("dashboard");
+    const roleSelect = document.getElementById("roleSelect");
+    const loginButton = document.getElementById("loginButton");
+    const welcomeMessage = document.getElementById("welcomeMessage");
+    const ownerDashboard = document.getElementById("ownerDashboard");
+    const managerDashboard = document.getElementById("managerDashboard");
+    const dashboardLink = document.getElementById("dashboardLink");
+
+    // Navigate to Login
+    getStartedButton.addEventListener("click", () => {
+      document.querySelector(".intro-section").style.display = "none";
+      loginSection.style.display = "block";
+    });
+
+    // Role-Based Login
+    loginButton.addEventListener("click", () => {
+      const role = roleSelect.value;
+      loginSection.style.display = "none";
+      dashboard.classList.add("active");
+      if (role === "owner") {
+        welcomeMessage.textContent = "Welcome, Chain Owner!";
+        ownerDashboard.style.display = "block";
+        managerDashboard.style.display = "none";
+      } else if (role === "manager") {
+        welcomeMessage.textContent = "Welcome, Restaurant Manager!";
+        ownerDashboard.style.display = "none";
+        managerDashboard.style.display = "block";
+      }
+    });
+
+    // Dashboard Navigation Link
+    dashboardLink.addEventListener("click", (event) => {
+      event.preventDefault();
+      dashboard.scrollIntoView({ behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>
